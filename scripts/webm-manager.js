@@ -1,5 +1,5 @@
 /* Cypher WEBM Studio - library manager window (ApplicationV2) */
-import { MODULE_ID } from "./module.js";
+import { MODULE_ID } from "./constants.js";
 import { WebmPlayer } from "./webm-player.js";
 import { createVideoTile, setSceneBackground, setSceneForeground } from "./webm-actions.js";
 

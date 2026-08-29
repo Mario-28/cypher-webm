@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.0.1 — 2026-08-29
+
+- Fix: module failed to load entirely (no settings, no scene button) due to a circular import of MODULE_ID between module.js and its submodules. MODULE_ID now lives in scripts/constants.js with no imports, breaking the cycle.
+- Removed an unused import from webm-actions.js.
+
 ## 1.0.0 — 2026-08-29
 
 - Initial release.

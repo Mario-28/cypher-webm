@@ -1,6 +1,4 @@
 /* Cypher WEBM Studio - canvas and scene helpers */
-import { MODULE_ID } from "./module.js";
-
 export function probeVideoSize(src, fallback = { width: 640, height: 360 }) {
   return new Promise((resolve) => {
     const video = document.createElement("video");

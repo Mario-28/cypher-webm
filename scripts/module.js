@@ -1,9 +1,8 @@
 /* Cypher WEBM Studio - entry point: settings, socket, scene control button */
+import { MODULE_ID } from "./constants.js";
 import { WebmManager } from "./webm-manager.js";
 import { WebmPlayer } from "./webm-player.js";
 import * as WebmActions from "./webm-actions.js";
-
-export const MODULE_ID = "cypher-webm";
 
 Hooks.once("init", () => {
   game.settings.register(MODULE_ID, "libraryPath", {

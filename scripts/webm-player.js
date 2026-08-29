@@ -1,5 +1,5 @@
 /* Cypher WEBM Studio - GM-broadcast fullscreen overlay player */
-import { MODULE_ID } from "./module.js";
+import { MODULE_ID } from "./constants.js";
 
 const SOCKET = `module.${MODULE_ID}`;
 const clamp01 = (n) => Math.min(1, Math.max(0, Number(n) || 0));
