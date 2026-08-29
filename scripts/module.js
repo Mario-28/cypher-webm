@@ -2,6 +2,7 @@
 import { MODULE_ID } from "./constants.js";
 import { WebmManager } from "./webm-manager.js";
 import { WebmPlayer } from "./webm-player.js";
+import { patchNativeFilePicker } from "./native-picker.js";
 import * as WebmActions from "./webm-actions.js";
 
 Hooks.once("init", () => {
@@ -21,6 +22,16 @@ Hooks.once("init", () => {
     config: true,
     type: Boolean,
     default: false
+  });
+
+  game.settings.register(MODULE_ID, "nativePickerWebm", {
+    name: "CYPHER_WEBM.Settings.NativePickerWebm.Name",
+    hint: "CYPHER_WEBM.Settings.NativePickerWebm.Hint",
+    scope: "world",
+    config: true,
+    type: Boolean,
+    default: true,
+    requiresReload: true
   });
 
   game.settings.register(MODULE_ID, "defaultLoop", {
@@ -58,6 +69,12 @@ Hooks.once("init", () => {
     type: WebmManager,
     restricted: true
   });
+});
+
+Hooks.once("setup", () => {
+  if (game.settings.get(MODULE_ID, "nativePickerWebm")) {
+    patchNativeFilePicker();
+  }
 });
 
 Hooks.once("ready", async () => {
