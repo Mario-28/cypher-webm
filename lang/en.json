@@ -1,0 +1,48 @@
+{
+  "CYPHER_WEBM": {
+    "Manager": {
+      "Title": "Cypher WEBM Studio",
+      "Upload": "Upload WEBM",
+      "NewFolder": "New Folder",
+      "Create": "Create",
+      "FolderPlaceholder": "folder-name",
+      "DropHint": "Drag & drop .webm files anywhere in this window to upload.",
+      "Empty": "No WEBM files here yet. Upload one to get started.",
+      "BrowseError": "Library folder not found yet - upload a file to create it."
+    },
+    "Controls": {
+      "Group": { "Title": "WEBM Studio" },
+      "OpenStudio": { "Title": "Open WEBM Studio" }
+    },
+    "Settings": {
+      "LibraryPath": { "Name": "WEBM Library Path", "Hint": "Folder inside your User Data where WEBM files are stored. Created automatically for the GM." },
+      "AllowPlayerManager": { "Name": "Players Can Open Studio", "Hint": "Lets players browse the library in read-only mode. Upload and playback stay GM-only." },
+      "DefaultLoop": { "Name": "Loop Videos by Default" },
+      "DefaultVolume": { "Name": "Default Playback Volume" },
+      "FadeMs": { "Name": "Overlay Fade (ms)", "Hint": "Fade duration for the broadcast overlay, in milliseconds." },
+      "OpenStudio": { "Name": "WEBM Studio", "Label": "Open WEBM Studio", "Hint": "Open the WEBM library manager." }
+    },
+    "Player": { "Unmute": "Unmute" },
+    "Actions": {
+      "CreateTile": "Create video tile",
+      "SetBackground": "Set as scene background",
+      "SetForeground": "Set as scene foreground",
+      "PlayBroadcast": "Play to all players",
+      "CopyPath": "Copy file path"
+    },
+    "Info": {
+      "Uploaded": "Uploaded {count} WEBM file(s).",
+      "TileCreated": "Video tile created.",
+      "BackgroundSet": "Scene background updated.",
+      "ForegroundSet": "Scene foreground updated.",
+      "PathCopied": "File path copied to clipboard."
+    },
+    "Warnings": {
+      "GMOnly": "Only the GM can do that.",
+      "NoUploadPermission": "You need the 'Upload New File' permission to upload files.",
+      "NoCanvas": "No scene is currently active.",
+      "Skipped": "Skipped {count} non-WEBM file(s).",
+      "FolderFailed": "Could not create the folder."
+    }
+  }
+}

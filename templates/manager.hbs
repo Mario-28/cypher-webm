@@ -1,0 +1,70 @@
+<div class="cypher-webm-manager-body">
+  <nav class="cypher-webm-toolbar">
+    <button type="button" data-action="goUp" {{#unless parent}}disabled{{/unless}} title="{{localize "CYPHER_WEBM.Controls.OpenStudio.Title"}}">
+      <i class="fa-solid fa-arrow-up"></i>
+    </button>
+    <div class="cypher-webm-breadcrumbs">
+      {{#each breadcrumbs}}
+      <button type="button" data-action="navigate" data-path="{{this.path}}">{{this.name}}</button>
+      {{#unless @last}}<span class="cypher-webm-sep">/</span>{{/unless}}
+      {{/each}}
+    </div>
+    <button type="button" data-action="refresh" title="Refresh"><i class="fa-solid fa-rotate"></i></button>
+    {{#if canUpload}}
+    <button type="button" data-action="createFolder">
+      <i class="fa-solid fa-folder-plus"></i> {{localize "CYPHER_WEBM.Manager.NewFolder"}}
+    </button>
+    <button type="button" data-action="upload" class="cypher-webm-upload-btn">
+      <i class="fa-solid fa-upload"></i> {{localize "CYPHER_WEBM.Manager.Upload"}}
+    </button>
+    <input type="file" class="cypher-webm-file-input" accept=".webm,video/webm" multiple hidden>
+    {{/if}}
+  </nav>
+
+  {{#if canUpload}}
+  <p class="cypher-webm-drop-hint">{{localize "CYPHER_WEBM.Manager.DropHint"}}</p>
+  {{/if}}
+  {{#if browseError}}
+  <p class="cypher-webm-drop-hint">{{localize "CYPHER_WEBM.Manager.BrowseError"}}</p>
+  {{/if}}
+
+  {{#if dirs.length}}
+  <div class="cypher-webm-dirs">
+    {{#each dirs}}
+    <button type="button" class="cypher-webm-dir" data-action="navigate" data-path="{{this.path}}">
+      <i class="fa-solid fa-folder"></i> {{this.name}}
+    </button>
+    {{/each}}
+  </div>
+  {{/if}}
+
+  <div class="cypher-webm-grid">
+    {{#each files}}
+    <article class="cypher-webm-card">
+      <video src="{{this.src}}" muted loop playsinline preload="metadata" data-hover></video>
+      <h4 title="{{this.name}}">{{this.name}}</h4>
+      <div class="cypher-webm-card-actions">
+        {{#if this.canUse}}
+        <button type="button" data-action="createTile" data-src="{{this.src}}" title="{{localize "CYPHER_WEBM.Actions.CreateTile"}}">
+          <i class="fa-solid fa-border-all"></i>
+        </button>
+        <button type="button" data-action="setBackground" data-src="{{this.src}}" title="{{localize "CYPHER_WEBM.Actions.SetBackground"}}">
+          <i class="fa-solid fa-image"></i>
+        </button>
+        <button type="button" data-action="setForeground" data-src="{{this.src}}" title="{{localize "CYPHER_WEBM.Actions.SetForeground"}}">
+          <i class="fa-solid fa-layer-group"></i>
+        </button>
+        <button type="button" data-action="playVideo" data-src="{{this.src}}" title="{{localize "CYPHER_WEBM.Actions.PlayBroadcast"}}">
+          <i class="fa-solid fa-play"></i>
+        </button>
+        {{/if}}
+        <button type="button" data-action="copyPath" data-src="{{this.src}}" title="{{localize "CYPHER_WEBM.Actions.CopyPath"}}">
+          <i class="fa-solid fa-copy"></i>
+        </button>
+      </div>
+    </article>
+    {{else}}
+    <p class="cypher-webm-empty">{{localize "CYPHER_WEBM.Manager.Empty"}}</p>
+    {{/each}}
+  </div>
+</div>

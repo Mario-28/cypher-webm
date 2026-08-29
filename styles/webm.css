@@ -1,0 +1,193 @@
+/* Cypher WEBM Studio */
+
+/* ---------- Manager window ---------- */
+.cypher-webm-manager .window-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.cypher-webm-manager-body {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  height: 100%;
+}
+
+.cypher-webm-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.cypher-webm-breadcrumbs {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex: 1;
+  min-width: 120px;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+
+.cypher-webm-breadcrumbs button {
+  background: none;
+  border: none;
+  padding: 2px 4px;
+  cursor: pointer;
+  color: var(--color-text-hyperlink, #4b9ad1);
+}
+
+.cypher-webm-breadcrumbs button:hover {
+  text-decoration: underline;
+}
+
+.cypher-webm-sep {
+  opacity: 0.5;
+}
+
+.cypher-webm-drop-hint {
+  font-size: 11px;
+  opacity: 0.7;
+  margin: 0;
+}
+
+.cypher-webm-dragover {
+  outline: 3px dashed var(--color-warm-2, #c9a227);
+  outline-offset: -6px;
+}
+
+.cypher-webm-dirs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.cypher-webm-dir {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.cypher-webm-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+  gap: 12px;
+  overflow-y: auto;
+  padding: 2px;
+  flex: 1;
+}
+
+.cypher-webm-card {
+  background: rgba(0, 0, 0, 0.25);
+  border: 1px solid var(--color-cool-4, #46536b);
+  border-radius: 8px;
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.cypher-webm-card video {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  border-radius: 4px;
+  background: #000;
+}
+
+.cypher-webm-card h4 {
+  margin: 0;
+  font-size: 12px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.cypher-webm-card-actions {
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+}
+
+.cypher-webm-card-actions button {
+  flex: 1;
+  min-width: 32px;
+  padding: 4px 0;
+}
+
+.cypher-webm-empty {
+  grid-column: 1 / -1;
+  text-align: center;
+  opacity: 0.75;
+  padding: 32px 0;
+}
+
+/* ---------- Broadcast overlay ---------- */
+.cypher-webm-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 25000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.92);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--cypher-webm-fade, 300ms) ease;
+}
+
+.cypher-webm-overlay.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.cypher-webm-video {
+  max-width: 96vw;
+  max-height: 90vh;
+  border-radius: 6px;
+  box-shadow: 0 0 60px rgba(0, 0, 0, 0.8);
+}
+
+.cypher-webm-unmute {
+  position: absolute;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 8px 16px;
+  border-radius: 20px;
+  background: rgba(20, 20, 20, 0.85);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  cursor: pointer;
+}
+
+.cypher-webm-overlay-controls {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  background: rgba(20, 20, 20, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 8px 10px;
+  border-radius: 8px;
+}
+
+.cypher-webm-overlay-controls button {
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cypher-webm-overlay-controls input[type="range"] {
+  width: 110px;
+}
+
+.cypher-webm-hidden {
+  display: none !important;
+}
