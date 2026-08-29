@@ -24,6 +24,11 @@ Upload, organize and play **WEBM** videos in **Foundry VTT 14+** — built for C
 - Each video card offers: **create tile**, **set background**, **set foreground**, **play to all players**, and **copy path**.
 - With "WEBM In Native File Pickers" enabled (default), native image pickers also list `.webm` files. Note: some portrait fields accept the path but only render a static preview, since core HTML fields don't autoplay video.
 
+## Troubleshooting
+
+- After updating module files manually, **hard-refresh the browser** (Ctrl+F5 / Cmd+Shift+R). Foundry does not cache-bust module scripts, so stale code is the most common cause of "the new feature isn't there".
+- Check the console (F12): on load the module logs `Native FilePicker patched [...]` — if you see a warning instead, the FilePicker API shape was not matched; report it.
+
 ## Permissions
 
 - Uploading requires the core **Upload New File** permission (players typically don't have it — the studio hides upload controls then).

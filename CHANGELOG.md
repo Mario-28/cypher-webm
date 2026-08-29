@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.1.1 — 2026-08-29
+
+- Hardened the native picker patch: the `extensions` getter is now located by walking the prototype chain (covers inherited definitions), and `FilePicker.browse` is wrapped as a request-level fallback that appends webm to any image-scoped extension list.
+- Clearer console diagnostics: the module logs exactly which patch layers were applied, and warns if the FilePicker API shape was not found.
+
 ## 1.1.0 — 2026-08-29
 
 - New option "WEBM In Native File Pickers" (world setting, default on, requires reload): patches the FilePicker `extensions` getter so image-type pickers (actor portraits, item art, journal images, etc.) list and accept `.webm` files. Tile and scene pickers already accepted video; this covers the rest.
