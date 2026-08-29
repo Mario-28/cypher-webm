@@ -17,6 +17,11 @@ function withWebm(extensions) {
   return has ? extensions : [...extensions, "webm"];
 }
 
+function fileKey(entry) {
+  if (typeof entry === "string") return entry;
+  return entry?.path ?? entry?.src ?? entry?.url ?? null;
+}
+
 export function patchNativeFilePicker() {
   const FilePicker = foundry.applications?.apps?.FilePicker;
   if (!FilePicker?.prototype) {
@@ -26,31 +31,43 @@ export function patchNativeFilePicker() {
 
   const patched = [];
 
-  /* Layer 1: instance-level. The picker feeds its own `extensions` getter into
-     browse/matchFiles, so appending webm there lists and accepts the files. */
-  let proto = FilePicker.prototype;
-  let descriptor;
-  while (proto && !descriptor) {
-    descriptor = Object.getOwnPropertyDescriptor(proto, "extensions");
-    proto = Object.getPrototypeOf(proto);
-  }
-  if (descriptor?.get) {
-    const originalGet = descriptor.get;
-    Object.defineProperty(FilePicker.prototype, "extensions", {
-      configurable: true,
-      get() {
-        const extensions = originalGet.call(this);
-        if (!Array.isArray(extensions)) return extensions;
+  /* Layer 1 (primary): wrap _prepareContext. In V14, `extensions` is an instance
+     property (not a prototype getter), and the displayed file list is already
+     filtered when the render context is built. After the original runs we append
+     webm to the accepted extensions and merge matching .webm files from our own
+     browse into the displayed list, deduplicated by path. */
+  const originalPrepare = FilePicker.prototype._prepareContext;
+  if (typeof originalPrepare === "function") {
+    FilePicker.prototype._prepareContext = async function (options) {
+      const context = await originalPrepare.call(this, options);
+      try {
         const type = this.options?.type ?? this.type;
-        if (IMAGE_LIKE_TYPES.includes(type)) return withWebm(extensions);
-        return extensions;
+        if (!IMAGE_LIKE_TYPES.includes(type)) return context;
+        if (Array.isArray(context?.extensions)) {
+          context.extensions = withWebm(context.extensions);
+        }
+        if (!Array.isArray(context?.files)) return context;
+        const source = this.activeSource ?? "data";
+        const target = context.target ?? this.target ?? "";
+        const extra = await FilePicker.browse(source, target, { extensions: ["webm"] });
+        const existing = new Set(context.files.map(fileKey));
+        for (const file of extra?.files ?? []) {
+          const key = fileKey(file);
+          if (key && !existing.has(key)) {
+            context.files.push(file);
+            existing.add(key);
+          }
+        }
+      } catch (err) {
+        console.warn(`${MODULE_ID} | WEBM merge into FilePicker failed`, err);
       }
-    });
-    patched.push("extensions-getter");
+      return context;
+    };
+    patched.push("prepare-context");
   }
 
-  /* Layer 2: request-level safety net. Any image-scoped browse that built its
-     extension list without the getter still gets webm appended. */
+  /* Layer 2 (request-level): any image-scoped browse gets webm appended, so the
+     server itself returns WEBM files when the caller passes image extensions. */
   const originalBrowse = FilePicker.browse;
   if (typeof originalBrowse === "function") {
     FilePicker.browse = function patchedBrowse(source, target, options = {}) {

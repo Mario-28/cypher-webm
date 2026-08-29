@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.1.2 — 2026-08-29
+
+- Fix: the native picker patch did not affect V14 pickers. In V14, FilePicker `extensions` is an instance property (not a prototype getter), and the filtered file list is built inside `_prepareContext`. The patch now wraps `_prepareContext`: it appends webm to the accepted extension list and merges matching .webm files into the displayed results (deduplicated by path). The `FilePicker.browse` wrapper is kept as a second layer.
+
 ## 1.1.1 — 2026-08-29
 
 - Hardened the native picker patch: the `extensions` getter is now located by walking the prototype chain (covers inherited definitions), and `FilePicker.browse` is wrapped as a request-level fallback that appends webm to any image-scoped extension list.
